@@ -27,6 +27,44 @@ Documentation for the package can be found on [Lyften.com](http://lyften.com/pro
 
 Many people have contributed to project since its inception.
 
+Laravel
+Once installed you need to register the service provider with the application. Open up config/app.php and find the providers key.
+
+'providers' => [
+
+    \Torann\GeoIP\GeoIPServiceProvider::class,
+
+]
+This package also comes with an optional facade, which provides an easy way to call the the class. Open up config/app.php and find the aliases key.
+
+'aliases' => [
+
+    'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+
+];
+Publish the configurations
+Run this on the command line from the root of your project:
+
+php artisan vendor:publish --provider="Torann\GeoIP\GeoIPServiceProvider" --tag=config
+A configuration file will be publish to config/geoip.php.
+
+Configuration
+Quick breakdown of the two main options in the configuration file. To find out more simple open the config/geoip.php file.
+
+Service Configuration
+To simplify and keep things clean, all third party composer packages, that are needed for a service, are installed separately.
+
+For further configuration options checkout the services page.
+
+Caching Configuration
+GeoIP uses Laravel's default caching to store queried IP locations. This is done to reduce the number of calls made to the selected service, as some of them are rate limited.
+
+Options:
+
+all all location are cached
+some cache only the requesting user
+none caching is completely disable
+
 Thanks to:
 
 - [Dwight Watson](https://github.com/dwightwatson)
